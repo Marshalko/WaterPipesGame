@@ -13,7 +13,6 @@ public class Game extends JFrame {
     Label counter;
     JLabel size;
     JSlider slider;
-    Board board;
 
     public Game() {
         this.getContentPane().setLayout(new BorderLayout());
@@ -24,6 +23,7 @@ public class Game extends JFrame {
         bottomMenu.setVisible(true);
 
         GameLogic gameLogic = new GameLogic(this);
+        this.addKeyListener(gameLogic);
 
         this.counter = new Label("U suck penis");
         bottomMenu.add(counter,BorderLayout.WEST);

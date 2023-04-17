@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.*;
 
 public class GameLogic extends UniversalAdapter {
@@ -29,9 +30,9 @@ public class GameLogic extends UniversalAdapter {
     private void restartGame(){
         this.frame.remove(this.board);
         this.newBoard(this.boardSize);
-
         this.frame.add(this.board);
         this.frame.revalidate();
+
     }
 
 
@@ -60,9 +61,31 @@ public class GameLogic extends UniversalAdapter {
             this.frame.setFocusable(true);
             this.frame.requestFocus();
         }
-        else if(command.equals("checkButton")) System.out.println("stlacil si check");
-
-
+        else if(command.equals("checkButton")) {
+            System.out.println("stlacil si check");
+            this.frame.setFocusable(true);
+            this.frame.requestFocus();
+        }
     }
 
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println(e);
+
+        switch (e.getKeyCode()) {
+            case KeyEvent.VK_R:
+                System.out.println("stlacil si R");
+                break;
+            case KeyEvent.VK_ESCAPE:
+                System.out.println("stalcil si esc");
+        }
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
 }
