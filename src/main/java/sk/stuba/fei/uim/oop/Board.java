@@ -8,7 +8,6 @@ import java.util.EventListener;
 
 public class Board extends JPanel  {
 
-    private Player p;
     private MazeGenerator maze;
     private int [][] tiles;
     private ArrayList<int[]> path;

@@ -138,7 +138,7 @@ public class MazeGenerator {
         int[] start = backTrackList.get(0);
         int[] end = backTrackList.get(backTrackList.size() - 1);
         maze[start[0]][start[1]] = 2;
-        maze[end[0]][end[1]] = 2;
+        maze[end[0]][end[1]] = 4;
 
     }
 
