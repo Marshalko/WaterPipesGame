@@ -4,13 +4,13 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.util.*;
 
 public class GameLogic extends UniversalAdapter {
     public static final int INITIAL_BOARD_SIZE = 8;
     private Board board;
     private int boardSize;
     private JFrame frame;
+    private JLabel sizeLabel;
 
 
     public GameLogic(JFrame frame) {
@@ -18,6 +18,8 @@ public class GameLogic extends UniversalAdapter {
     this.boardSize = INITIAL_BOARD_SIZE;
     this.newBoard(this.boardSize);
     this.frame.add(this.board);
+    this.sizeLabel = new JLabel();
+    this.updateSizeLabel();
     }
 
 
@@ -35,6 +37,12 @@ public class GameLogic extends UniversalAdapter {
 
     }
 
+    private void updateSizeLabel(){
+        this.sizeLabel.setText("Size is "+ this.boardSize);
+        this.frame.revalidate();
+        this.frame.repaint();
+    }
+
 
     @Override
     public void stateChanged(ChangeEvent e) {
@@ -43,6 +51,7 @@ public class GameLogic extends UniversalAdapter {
         JSlider source = (JSlider)e.getSource();
         if (!source.getValueIsAdjusting()) {
             this.boardSize = ((JSlider) e.getSource()).getValue();
+            this.updateSizeLabel();
             this.restartGame();
             System.out.println("zmena na" + boardSize);
             this.frame.setFocusable(true);
@@ -74,18 +83,14 @@ public class GameLogic extends UniversalAdapter {
 
         switch (e.getKeyCode()) {
             case KeyEvent.VK_R:
-                System.out.println("stlacil si R");
+                restartGame();
                 break;
             case KeyEvent.VK_ESCAPE:
-                System.out.println("stalcil si esc");
+                frame.dispose();
         }
     }
 
-    public Board getBoard() {
-        return board;
-    }
-
-    public JFrame getFrame() {
-        return frame;
+    public JLabel getSizeLabel() {
+        return sizeLabel;
     }
 }

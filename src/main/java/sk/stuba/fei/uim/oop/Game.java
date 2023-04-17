@@ -2,8 +2,6 @@ package sk.stuba.fei.uim.oop;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.Hashtable;
 
 public class Game extends JFrame {
@@ -25,6 +23,8 @@ public class Game extends JFrame {
         GameLogic gameLogic = new GameLogic(this);
         this.addKeyListener(gameLogic);
 
+
+
         this.counter = new Label("U suck penis");
         bottomMenu.add(counter,BorderLayout.WEST);
 
@@ -40,29 +40,29 @@ public class Game extends JFrame {
         checkButton.addActionListener(gameLogic);
         bottomMenu.add(checkButton,BorderLayout.SOUTH);
 
-        slider = new JSlider(JSlider.HORIZONTAL,8,32,8);
-        slider.setMajorTickSpacing(8);
+        slider = new JSlider(JSlider.HORIZONTAL,8,12,8);
+        slider.setMajorTickSpacing(2);
         slider.setPaintTicks(true);
         slider.setSnapToTicks(true);
 
         Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
         labelTable.put(8, new JLabel("8"));
-        labelTable.put(16, new JLabel("16"));
-        labelTable.put(24, new JLabel("24"));
-        labelTable.put(32, new JLabel("32"));
+        labelTable.put(10, new JLabel("10"));
+        labelTable.put(12, new JLabel("12"));
         slider.setLabelTable(labelTable);
         slider.setPaintLabels(true);
         slider.addChangeListener(gameLogic);
         bottomMenu.add(slider,BorderLayout.CENTER);
 
-        this.size = new JLabel("Size");
-        bottomMenu.add(size,BorderLayout.PAGE_START);
-        size.setHorizontalAlignment(JLabel.CENTER);
+
+        bottomMenu.add(gameLogic.getSizeLabel(),BorderLayout.PAGE_START);
+
 
 
        // this.add(board,BorderLayout.CENTER);
         this.add(bottomMenu,BorderLayout.SOUTH);
-
+        this.setFocusable(true);
+        this.requestFocusInWindow();
         this.setVisible(true);
         this.setTitle("WaterPipes");
         this.setResizable(false);
