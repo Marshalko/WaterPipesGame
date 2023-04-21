@@ -29,8 +29,8 @@ public class MazeGenerator {
                 maze[i][j] = 1;
             }
         }
-        int startRow = rand.nextInt(3);
-        int startCol = rand.nextInt(3);
+        int startRow = rand.nextInt(size);
+        int startCol = 0;
         maze[startRow][startCol] = 0;
         backTrackList.add(new int[]{startRow, startCol});
 
@@ -66,41 +66,30 @@ public class MazeGenerator {
                 if (row + neighbor[0] >= 0 || col + neighbor[1] >= 0 || row + neighbor[0] < size || col + neighbor[1] < size) {
                     newRow = row + neighbor[0];
                     newCol = col + neighbor[1];
-//                    if (newRow != row) {
-//                        if(newCol - 1 == Integer.parseInt(null)){
-//                            if(newCol+1 == 0) otherNeighbours =true;
-//                        }
-//                        else if (newCol - 1 == 0 || newCol + 1 == 0) {
-//                            otherNeighbours = true;
-//                        }
-//                    }
+
                     if (newRow < size && newRow >= 0 && newCol < size && newCol >= 0 && maze[newRow][newCol] == 1) {
                         maze[newRow][newCol] = 0;
                         if (newRow != row) {
                             if (neighbor[0] == 2) {
                                 maze[newRow - 1][newCol] = 0;
-                                //backTrackList.add(new int[]{newRow - 1, newCol});
-
                             } else {
                                 maze[newRow + 1][newCol] = 0;
-                                //backTrackList.add(new int[]{newRow + 1, newCol});
                             }
                         }
                         if (newCol != col) {
                             if (neighbor[1] == 2) {
                                 maze[newRow][newCol - 1] = 0;
-                               // backTrackList.add(new int[]{newRow, newCol - 1});
                             } else {
                                 maze[newRow][newCol + 1] = 0;
-                                //backTrackList.add(new int[]{newRow, newCol + 1});
                             }
                         }
-                        if (newRow < size && newRow >= (size - 2) && newCol < size && newCol >= (size - 2)) {
+                        if (  newCol >= (size -2)) {
                             backTrackList.add(new int[]{newRow, newCol});
                             end = true;
                             pathCarved = true;
                             finish = true;
                             break;
+
                         }
                         pathCarved = true;
                         break;
