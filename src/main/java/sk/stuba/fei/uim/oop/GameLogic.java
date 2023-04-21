@@ -6,17 +6,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.Collections;
 
 public class GameLogic extends UniversalAdapter {
     public static final int INITIAL_BOARD_SIZE = 8;
     private Board board;
     private int boardSize;
-    private JFrame frame;
-    private JLabel sizeLabel;
-    private JLabel winsLabel;
-    private ArrayList<int[]> path;
+    private final JFrame frame;
+    private final JLabel sizeLabel;
+    private final JLabel winsLabel;
     private int numberOfWins;
 
     public GameLogic(JFrame frame) {
@@ -29,13 +26,11 @@ public class GameLogic extends UniversalAdapter {
         this.winsLabel = new JLabel();
         this.updateWinsLabel();
         this.updateSizeLabel();
-        this.path = board.getPath();
     }
 
     private void newBoard(int size) {
         this.frame.repaint();
         this.board = new Board(size);
-        this.path = board.getPath();
         this.board.addMouseListener(this);
         this.board.addMouseMotionListener(this);
     }
@@ -136,12 +131,9 @@ public class GameLogic extends UniversalAdapter {
             temp++;
             if (temp > 3) {
                 temp = 0;
-                ((Pipe) position).setOrientation(temp);
-                this.frame.repaint();
-            } else {
-                ((Pipe) position).setOrientation(temp);
-                this.frame.repaint();
             }
+            ((Pipe) position).setOrientation(temp);
+            this.frame.repaint();
         }
     }
 

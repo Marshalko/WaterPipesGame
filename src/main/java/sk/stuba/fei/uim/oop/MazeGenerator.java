@@ -5,22 +5,21 @@ import java.util.Random;
 
 public class MazeGenerator {
 
-    private int size;
-    private int[][] maze;
-    private Random rand;
-    private boolean[][] visited;
-    private ArrayList<int[]> backTrackList;
-    private ArrayList<int[]> path;
+    private final int size;
+    private final int[][] maze;
+    private final Random rand;
+    private final ArrayList<int[]> backTrackList;
+    private final ArrayList<int[]> path;
 
     public MazeGenerator(int size) {
         this.size = size;
         this.maze = new int[size][size];
         this.rand = new Random();
-        this.visited = new boolean[size][size];
-        this.backTrackList = new ArrayList<int[]>();
-        this.path = new ArrayList<int[]>();
+        this.backTrackList = new ArrayList<>();
+        this.path = new ArrayList<>();
         generateMaze();
     }
+
     //generovanie bludiska
     private void generateMaze() {
 
@@ -40,11 +39,11 @@ public class MazeGenerator {
         fillPath();
         removeExcesivePaths();
     }
+
     //DFS algoritmus
     private void dfs(int row, int col, int size) {
 
         boolean end = false;
-        boolean finish = false;
         int count = 0;
         int newRow = 0;
         int newCol = 0;
@@ -62,13 +61,11 @@ public class MazeGenerator {
                     if (newRow < size && newRow >= 0 && newCol < size && newCol >= 0 && maze[newRow][newCol] == 1) {
                         maze[newRow][newCol] = 0;
 
-                        if (  newCol >= (size -1)) {
+                        if (newCol >= (size - 1)) {
                             backTrackList.add(new int[]{newRow, newCol});
                             end = true;
                             pathCarved = true;
-                            finish = true;
                             break;
-
                         }
                         pathCarved = true;
                         break;
@@ -93,10 +90,8 @@ public class MazeGenerator {
                 }
             }
             if (!end) {
-                if (!finish) {
-                    backTrackList.add(new int[]{newRow, newCol});// tu davam novu poziciu do arraylistu
-                    dfs(newRow, newCol, size);
-                }
+                backTrackList.add(new int[]{newRow, newCol});// tu davam novu poziciu do arraylistu
+                dfs(newRow, newCol, size);
             }
         }
     }
@@ -107,36 +102,32 @@ public class MazeGenerator {
         int[] end = backTrackList.get(backTrackList.size() - 1);
         maze[start[0]][start[1]] = 2;
         maze[end[0]][end[1]] = 4;
-
     }
 
     // spravy array prepojenych pozicii
-    private void fillPath(){
-        for(int i =0; i< backTrackList.size()-1;i++){
+    private void fillPath() {
+        for (int i = 0; i < backTrackList.size() - 1; i++) {
             int[] temp0 = backTrackList.get(i);
-            int[] temp1 = backTrackList.get(i+1);
-            if(temp0[0]==temp1[0]){
-                if(temp0[1]<temp1[1]){
+            int[] temp1 = backTrackList.get(i + 1);
+            if (temp0[0] == temp1[0]) {
+                if (temp0[1] < temp1[1]) {
                     path.add(backTrackList.get(i));
-                    path.add(new int[]{temp0[0],temp0[1]+1});
-                }
-                else {
-                    path.add(new int[]{temp0[0],temp0[1]-1});
+                    path.add(new int[]{temp0[0], temp0[1] + 1});
+                } else {
+                    path.add(new int[]{temp0[0], temp0[1] - 1});
                     path.add(backTrackList.get(i));
                 }
             }
-            if(temp0[1]==temp1[1]){
-                if(temp0[0]<temp1[0]){
-                    path.add(backTrackList.get(i));
-                    path.add(new int[]{(temp0[0]+1),temp0[1]});
-                }
-                else {
-                    path.add(backTrackList.get(i));
-                    path.add(new int[]{(temp0[0]-1),temp0[1]});
+            if (temp0[1] == temp1[1]) {
+                path.add(backTrackList.get(i));
+                if (temp0[0] < temp1[0]) {
+                    path.add(new int[]{(temp0[0] + 1), temp0[1]});
+                } else {
+                    path.add(new int[]{(temp0[0] - 1), temp0[1]});
                 }
             }
         }
-        path.add(backTrackList.get(backTrackList.size()-1));
+        path.add(backTrackList.get(backTrackList.size() - 1));
     }
 
     //setne cetu v maze na 0 alebo 7 podla tvaru cesty
@@ -148,8 +139,6 @@ public class MazeGenerator {
             //ak je rovny trubko
             if (temp0[0] == temp1[0] && temp0[0] == temp2[0] || temp0[1] == temp1[1] && temp1[1] == temp2[1]) {
                 maze[temp1[0]][temp1[1]] = 0;
-                // maze[temp0[0]][temp0[1]]=3;
-
             }
             //ak je Lkovy trubko
             else {
@@ -159,7 +148,7 @@ public class MazeGenerator {
     }
 
     // odstrani neplatne cesty
-    private void removeExcesivePaths(){
+    private void removeExcesivePaths() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
                 boolean found = false;
@@ -182,10 +171,6 @@ public class MazeGenerator {
 
     public ArrayList<int[]> getBackTrackList() {
         return backTrackList;
-    }
-
-    public ArrayList<int[]> getPath() {
-        return path;
     }
 }
 

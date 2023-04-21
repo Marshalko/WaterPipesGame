@@ -2,7 +2,6 @@ package sk.stuba.fei.uim.oop;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Random;
 
 enum  OutputDirection{UP,DOWN,LEFT,RIGHT}
@@ -28,9 +27,9 @@ public class Pipe extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         int height = getHeight();
-        int thicknes = (int) (height * 0.4);
+        int thickness = (int) (height * 0.4);
         Graphics2D g2d = (Graphics2D) g;
-        g2d.setStroke(new BasicStroke(thicknes));
+        g2d.setStroke(new BasicStroke(thickness));
         int x = getWidth() / 2;
 
         if (this.isHighlight) {
@@ -125,10 +124,6 @@ public class Pipe extends JPanel {
         }
     }
 
-
-    public int getShape() {
-        return shape;
-    }
     public OutputDirection getInputDircetion(){ return input;}
     public OutputDirection getOutputDirection(){return output;}
     public void  setOutputDirection(OutputDirection outputDirection){

@@ -38,7 +38,7 @@ public class Game extends JFrame {
         slider.setPaintTicks(true);
         slider.setSnapToTicks(true);
 
-        Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
+        Hashtable<Integer, JLabel> labelTable = new Hashtable<>();
         labelTable.put(8, new JLabel("8"));
         labelTable.put(10, new JLabel("10"));
         labelTable.put(12, new JLabel("12"));

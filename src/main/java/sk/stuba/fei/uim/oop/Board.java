@@ -2,10 +2,7 @@ package sk.stuba.fei.uim.oop;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
-import java.util.EventListener;
-import java.util.Random;
 
 public class Board extends JPanel {
 
@@ -110,9 +107,5 @@ public class Board extends JPanel {
     }
     public ArrayList<int[]> getPath() {
         return path;
-    }
-
-    public Pipe[][] getBoard() {
-        return board;
     }
 }
