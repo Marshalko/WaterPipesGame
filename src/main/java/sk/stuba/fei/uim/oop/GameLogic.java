@@ -8,7 +8,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class GameLogic extends UniversalAdapter {
-    public static final int INITIAL_BOARD_SIZE = 9;
+    public static final int INITIAL_BOARD_SIZE = 8;
     private Board board;
     private int boardSize;
     private JFrame frame;
@@ -43,6 +43,7 @@ public class GameLogic extends UniversalAdapter {
         this.frame.repaint();
     }
 
+    private void checkConnection(){}
     @Override
     public void stateChanged(ChangeEvent e) {
         super.stateChanged(e);
@@ -69,6 +70,7 @@ public class GameLogic extends UniversalAdapter {
             this.frame.requestFocus();
         } else if (command.equals("checkButton")) {
             System.out.println("stlacil si check");
+
             this.frame.setFocusable(true);
             this.frame.requestFocus();
         }

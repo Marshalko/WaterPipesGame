@@ -59,28 +59,38 @@ public class Pipe extends JPanel {
             // ZAKTRUTA TRUBKA
             case 7: {
                 switch (orientation) {
+                    //UP LEFT
                     case 0: {
-                        this.input  = OutputDirection.DOWN;
+                        this.input  = OutputDirection.UP;
                         this.output = OutputDirection.LEFT;
                         g.setColor(Color.orange);
                         g.drawLine(x, 0, x, height / 2);
                         g.drawLine(0, x, x, x);
                         break;//
                     }
+                    //UP RIGHT
                     case 1: {
-                        g.setColor(Color.orange);
+                        this.input  = OutputDirection.UP;
+                        this.output = OutputDirection.RIGHT;
+                        g.setColor(Color.blue);
                         g.drawLine(x, 0, x, x);
                         g.drawLine(x, x, height, x);
                         break;
                     }
+                    // DOWN RIGHT
                     case 2: {
-                        g.setColor(Color.orange);
+                        this.input  = OutputDirection.RIGHT;
+                        this.output = OutputDirection.DOWN;
+                        g.setColor(Color.black);
                         g.drawLine(x, height, x, x);
                         g.drawLine(x, x, height, x);
                         break;
                     }
+                    // LEFT DOWN
                     case 3: {
-                        g.setColor(Color.orange);
+                        this.input  = OutputDirection.DOWN;
+                        this.output = OutputDirection.LEFT;
+                        g.setColor(Color.pink);
                         g.drawLine(x, height, x, x);
                         g.drawLine(0, x, x, x);
                         break;

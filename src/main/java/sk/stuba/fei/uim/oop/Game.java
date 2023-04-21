@@ -38,15 +38,15 @@ public class Game extends JFrame {
         checkButton.addActionListener(gameLogic);
         bottomMenu.add(checkButton,BorderLayout.SOUTH);
 
-        slider = new JSlider(JSlider.HORIZONTAL,9,13,9);
+        slider = new JSlider(JSlider.HORIZONTAL,8,12,8);
         slider.setMajorTickSpacing(2);
         slider.setPaintTicks(true);
         slider.setSnapToTicks(true);
 
         Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
-        labelTable.put(9, new JLabel("9"));
-        labelTable.put(11, new JLabel("11"));
-        labelTable.put(13, new JLabel("13"));
+        labelTable.put(8, new JLabel("8"));
+        labelTable.put(10, new JLabel("10"));
+        labelTable.put(12, new JLabel("12"));
         slider.setLabelTable(labelTable);
         slider.setPaintLabels(true);
         slider.addChangeListener(gameLogic);
