@@ -65,7 +65,7 @@ public class Pipe extends JPanel {
                         g.setColor(Color.orange);
                         g.drawLine(x, 0, x, height / 2);
                         g.drawLine(0, x, x, x);
-                        break;
+                        break;//
                     }
                     case 1: {
                         g.setColor(Color.orange);
