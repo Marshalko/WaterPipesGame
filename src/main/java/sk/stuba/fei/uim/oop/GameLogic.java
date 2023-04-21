@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class GameLogic extends UniversalAdapter {
     public static final int INITIAL_BOARD_SIZE = 8;
@@ -13,6 +15,7 @@ public class GameLogic extends UniversalAdapter {
     private int boardSize;
     private JFrame frame;
     private JLabel sizeLabel;
+    private ArrayList<int[]> path;
 
     public GameLogic(JFrame frame) {
         this.frame = frame;
@@ -21,11 +24,13 @@ public class GameLogic extends UniversalAdapter {
         this.frame.add(this.board);
         this.sizeLabel = new JLabel();
         this.updateSizeLabel();
+        this.path = board.getPath();
     }
 
     private void newBoard(int size) {
         this.frame.repaint();
         this.board = new Board(size);
+        this.path = board.getPath();
         this.board.addMouseListener(this);
         this.board.addMouseMotionListener(this);
     }
@@ -43,7 +48,11 @@ public class GameLogic extends UniversalAdapter {
         this.frame.repaint();
     }
 
-    private void checkConnection(){}
+//    private void checkConnection(){
+//        for(int i=0; i< path.size();i++){
+//            if(board.getBoard())
+//        }
+//    }
     @Override
     public void stateChanged(ChangeEvent e) {
         super.stateChanged(e);
@@ -64,13 +73,12 @@ public class GameLogic extends UniversalAdapter {
         String command = e.getActionCommand();
 
         if (command.equals("resetButton")) {
-            System.out.println("Stlacil si reset");
             this.restartGame();
             this.frame.setFocusable(true);
             this.frame.requestFocus();
         } else if (command.equals("checkButton")) {
-            System.out.println("stlacil si check");
-
+            board.checkConnections();
+            this.board.repaint();
             this.frame.setFocusable(true);
             this.frame.requestFocus();
         }
@@ -95,7 +103,8 @@ public class GameLogic extends UniversalAdapter {
         Component position = this.board.getComponentAt(e.getX(), e.getY());//rename
         if(!(position instanceof Pipe)) return;
         {
-                ((Pipe)position).setisHighlight(true);
+            this.board.eraseConnection();
+            ((Pipe)position).setisHighlight(true);
                 this.board.repaint();
                 //this.frame.revalidate();
         }

@@ -180,6 +180,10 @@ public class MazeGenerator {
         return maze;
     }
 
+    public ArrayList<int[]> getBackTrackList() {
+        return backTrackList;
+    }
+
     public ArrayList<int[]> getPath() {
         return path;
     }

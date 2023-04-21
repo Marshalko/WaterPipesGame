@@ -8,14 +8,18 @@ import java.util.Random;
 enum  OutputDirection{UP,DOWN,LEFT,RIGHT}
 public class Pipe extends JPanel {
     private final int shape;
+    private boolean isConnected;
     private boolean isHighlight;
     private int orientation;
     private OutputDirection input;
     private OutputDirection output;
+
+
     public Pipe(int shape) {
         Random random = new Random();
         this.orientation = random.nextInt(3);
         this.shape = shape;
+        this.isConnected = false;
         this.isHighlight = false;
         this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.setPreferredSize(new Dimension(50, 50));
@@ -32,7 +36,12 @@ public class Pipe extends JPanel {
         if (this.isHighlight) {
             this.setBackground(Color.pink);
             this.isHighlight = false;
-        } else this.setBackground(Color.white);
+        }
+        else if(this.isConnected){
+            this.setBackground(Color.cyan);
+            //this.isConnected = false;
+        }
+        else this.setBackground(Color.white);
         switch (shape) {
             // ROVNA TRUBKA
             case 0: {
@@ -72,7 +81,7 @@ public class Pipe extends JPanel {
                     case 1: {
                         this.input  = OutputDirection.UP;
                         this.output = OutputDirection.RIGHT;
-                        g.setColor(Color.blue);
+                        g.setColor(Color.orange);
                         g.drawLine(x, 0, x, x);
                         g.drawLine(x, x, height, x);
                         break;
@@ -81,7 +90,7 @@ public class Pipe extends JPanel {
                     case 2: {
                         this.input  = OutputDirection.RIGHT;
                         this.output = OutputDirection.DOWN;
-                        g.setColor(Color.black);
+                        g.setColor(Color.orange);
                         g.drawLine(x, height, x, x);
                         g.drawLine(x, x, height, x);
                         break;
@@ -90,7 +99,7 @@ public class Pipe extends JPanel {
                     case 3: {
                         this.input  = OutputDirection.DOWN;
                         this.output = OutputDirection.LEFT;
-                        g.setColor(Color.pink);
+                        g.setColor(Color.orange);
                         g.drawLine(x, height, x, x);
                         g.drawLine(0, x, x, x);
                         break;
@@ -104,6 +113,7 @@ public class Pipe extends JPanel {
             }
             //START
             case 2: {
+
                 this.setBackground(Color.red);
                 break;
             }
@@ -121,8 +131,15 @@ public class Pipe extends JPanel {
     }
     public OutputDirection getInputDircetion(){ return input;}
     public OutputDirection getOutputDirection(){return output;}
+    public void  setOutputDirection(OutputDirection outputDirection){
+        this.output=outputDirection;
+    }
     public int getOrientation() {
         return orientation;
+    }
+
+    public void setConnected(boolean connected) {
+        isConnected = connected;
     }
 
     public void setOrientation(int orientation) {
