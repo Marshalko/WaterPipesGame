@@ -43,22 +43,14 @@ public class MazeGenerator {
     //DFS algoritmus
     private void dfs(int row, int col, int size) {
 
-
-        // Define the order in which to visit neighboring cells
         boolean end = false;
         boolean finish = false;
         int count = 0;
         int newRow = 0;
         int newCol = 0;
         boolean pathCarved = false;
-        boolean otherNeighbours = false;
-        int[][] neighbors = {{-2, 0}, {2, 0}, {0, 2}, {0, -2}};
+        int[][] neighbors = {{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
         Collections.shuffle(Arrays.asList(neighbors), rand);
-        //stop recursion when i am finish
-        if (row < size && row >= (size - 2) && col < size && col >= (size - 2)) {
-            end = true;
-            pathCarved = true;
-        }
 
         while (!pathCarved) {
             for (int[] neighbor : neighbors) {
@@ -69,21 +61,8 @@ public class MazeGenerator {
 
                     if (newRow < size && newRow >= 0 && newCol < size && newCol >= 0 && maze[newRow][newCol] == 1) {
                         maze[newRow][newCol] = 0;
-                        if (newRow != row) {
-                            if (neighbor[0] == 2) {
-                                maze[newRow - 1][newCol] = 0;
-                            } else {
-                                maze[newRow + 1][newCol] = 0;
-                            }
-                        }
-                        if (newCol != col) {
-                            if (neighbor[1] == 2) {
-                                maze[newRow][newCol - 1] = 0;
-                            } else {
-                                maze[newRow][newCol + 1] = 0;
-                            }
-                        }
-                        if (  newCol >= (size -2)) {
+
+                        if (  newCol >= (size -1)) {
                             backTrackList.add(new int[]{newRow, newCol});
                             end = true;
                             pathCarved = true;
