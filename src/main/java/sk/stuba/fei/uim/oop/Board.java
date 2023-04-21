@@ -53,11 +53,11 @@ public class Board extends JPanel {
         int[] temp4 = path.get(path.size() - 2);
         if (temp3[0] != temp4[0]) {
             if (temp3[1] < temp4[1])
-                this.board[temp4[0]][temp4[1]].setOutputDirection(OutputDirection.UP);
+                this.board[temp3[0]][temp3[1]].setOutputDirection(OutputDirection.UP);
             else
-                this.board[temp4[0]][temp4[1]].setOutputDirection(OutputDirection.DOWN);
+                this.board[temp3[0]][temp3[1]].setOutputDirection(OutputDirection.DOWN);
         } else
-            this.board[temp4[0]][temp4[1]].setOutputDirection(OutputDirection.LEFT);
+            this.board[temp3[0]][temp3[1]].setOutputDirection(OutputDirection.LEFT);
 
     }
 
@@ -67,7 +67,7 @@ public class Board extends JPanel {
         OutputDirection temp3;
         OutputDirection temp4;
         int i = 0;
-        while (i < (path.size() - 1)) {
+        while (i < (path.size())-1) {
             i++;
             temp1 = board[path.get(i)[0]][path.get(i)[1]].getInputDircetion();
             temp2 = board[path.get(i)[0]][path.get(i)[1]].getOutputDirection();
@@ -100,7 +100,7 @@ public class Board extends JPanel {
                 }
             }
         }
-        return false;
+        return board[path.get(path.size() - 1)[0]][path.get(path.size() - 1)[1]].isConnected();
     }
 
     public void eraseConnection(){

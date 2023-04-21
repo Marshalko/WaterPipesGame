@@ -15,14 +15,19 @@ public class GameLogic extends UniversalAdapter {
     private int boardSize;
     private JFrame frame;
     private JLabel sizeLabel;
+    private JLabel winsLabel;
     private ArrayList<int[]> path;
+    private int numberOfWins;
 
     public GameLogic(JFrame frame) {
+        this.numberOfWins=0;
         this.frame = frame;
         this.boardSize = INITIAL_BOARD_SIZE;
         this.newBoard(this.boardSize);
         this.frame.add(this.board);
         this.sizeLabel = new JLabel();
+        this.winsLabel = new JLabel();
+        this.updateWinsLabel();
         this.updateSizeLabel();
         this.path = board.getPath();
     }
@@ -48,11 +53,11 @@ public class GameLogic extends UniversalAdapter {
         this.frame.repaint();
     }
 
-//    private void checkConnection(){
-//        for(int i=0; i< path.size();i++){
-//            if(board.getBoard())
-//        }
-//    }
+    private void updateWinsLabel(){
+        this.winsLabel.setText("Wins: " + numberOfWins);
+        this.frame.repaint();
+        this.frame.revalidate();
+    }
     @Override
     public void stateChanged(ChangeEvent e) {
         super.stateChanged(e);
@@ -81,6 +86,14 @@ public class GameLogic extends UniversalAdapter {
             this.board.repaint();
             this.frame.setFocusable(true);
             this.frame.requestFocus();
+
+            if (board.checkConnections()) {
+                numberOfWins++;
+                this.updateWinsLabel();
+                this.restartGame();
+                this.frame.setFocusable(true);
+                this.frame.requestFocus();
+            }
         }
     }
 
@@ -101,14 +114,13 @@ public class GameLogic extends UniversalAdapter {
     public void mouseMoved(MouseEvent e) {
         super.mouseMoved(e);
         Component position = this.board.getComponentAt(e.getX(), e.getY());//rename
-        if(!(position instanceof Pipe)) return;
+        if (!(position instanceof Pipe)) return;
         {
             this.board.eraseConnection();
-            ((Pipe)position).setisHighlight(true);
-                this.board.repaint();
-                //this.frame.revalidate();
+            ((Pipe) position).setisHighlight(true);
+            //this.frame.revalidate();
         }
-
+        this.board.repaint();
 
 
     }
@@ -135,5 +147,8 @@ public class GameLogic extends UniversalAdapter {
 
     public JLabel getSizeLabel() {
         return sizeLabel;
+    }
+    public JLabel getWinsLabel() {
+        return winsLabel;
     }
 }

@@ -8,8 +8,6 @@ public class Game extends JFrame {
 
     JButton resetButton;
     JButton checkButton;
-    Label counter;
-    JLabel size;
     JSlider slider;
 
     public Game() {
@@ -22,9 +20,6 @@ public class Game extends JFrame {
 
         GameLogic gameLogic = new GameLogic(this);
         this.addKeyListener(gameLogic);
-
-        this.counter = new Label("U won 0");
-        bottomMenu.add(counter,BorderLayout.WEST);
 
         resetButton = new JButton("RESTART");
         resetButton.setFocusable(false);
@@ -53,6 +48,7 @@ public class Game extends JFrame {
         bottomMenu.add(slider,BorderLayout.CENTER);
 
         bottomMenu.add(gameLogic.getSizeLabel(),BorderLayout.PAGE_START);
+        bottomMenu.add(gameLogic.getWinsLabel(),BorderLayout.WEST);
 
         this.add(bottomMenu,BorderLayout.SOUTH);
         this.setFocusable(true);

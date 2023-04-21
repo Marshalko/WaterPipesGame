@@ -142,6 +142,10 @@ public class Pipe extends JPanel {
         isConnected = connected;
     }
 
+    public boolean isConnected() {
+        return isConnected;
+    }
+
     public void setOrientation(int orientation) {
         this.orientation = orientation;
     }
