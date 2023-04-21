@@ -23,9 +23,7 @@ public class Game extends JFrame {
         GameLogic gameLogic = new GameLogic(this);
         this.addKeyListener(gameLogic);
 
-
-
-        this.counter = new Label("U suck penis");
+        this.counter = new Label("U won 0");
         bottomMenu.add(counter,BorderLayout.WEST);
 
         resetButton = new JButton("RESTART");
@@ -40,26 +38,22 @@ public class Game extends JFrame {
         checkButton.addActionListener(gameLogic);
         bottomMenu.add(checkButton,BorderLayout.SOUTH);
 
-        slider = new JSlider(JSlider.HORIZONTAL,8,12,8);
+        slider = new JSlider(JSlider.HORIZONTAL,9,13,9);
         slider.setMajorTickSpacing(2);
         slider.setPaintTicks(true);
         slider.setSnapToTicks(true);
 
         Hashtable<Integer, JLabel> labelTable = new Hashtable<Integer, JLabel>();
-        labelTable.put(8, new JLabel("8"));
-        labelTable.put(10, new JLabel("10"));
-        labelTable.put(12, new JLabel("12"));
+        labelTable.put(9, new JLabel("9"));
+        labelTable.put(11, new JLabel("11"));
+        labelTable.put(13, new JLabel("13"));
         slider.setLabelTable(labelTable);
         slider.setPaintLabels(true);
         slider.addChangeListener(gameLogic);
         bottomMenu.add(slider,BorderLayout.CENTER);
 
-
         bottomMenu.add(gameLogic.getSizeLabel(),BorderLayout.PAGE_START);
 
-
-
-       // this.add(board,BorderLayout.CENTER);
         this.add(bottomMenu,BorderLayout.SOUTH);
         this.setFocusable(true);
         this.requestFocusInWindow();
@@ -68,10 +62,5 @@ public class Game extends JFrame {
         this.setResizable(false);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(800,800);
-
     }
-
-
-
 }
-// zmena slidera bude vytvarat novy board

@@ -8,12 +8,11 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
 public class GameLogic extends UniversalAdapter {
-    public static final int INITIAL_BOARD_SIZE = 8;
+    public static final int INITIAL_BOARD_SIZE = 9;
     private Board board;
     private int boardSize;
     private JFrame frame;
     private JLabel sizeLabel;
-
 
     public GameLogic(JFrame frame) {
         this.frame = frame;
@@ -23,7 +22,6 @@ public class GameLogic extends UniversalAdapter {
         this.sizeLabel = new JLabel();
         this.updateSizeLabel();
     }
-
 
     private void newBoard(int size) {
         this.frame.repaint();
@@ -44,7 +42,6 @@ public class GameLogic extends UniversalAdapter {
         this.frame.revalidate();
         this.frame.repaint();
     }
-
 
     @Override
     public void stateChanged(ChangeEvent e) {
@@ -93,26 +90,36 @@ public class GameLogic extends UniversalAdapter {
     @Override
     public void mouseMoved(MouseEvent e) {
         super.mouseMoved(e);
-//        Component position = this.board.getComponentAt(e.getX(), e.getY());
-//        if ((position instanceof Pipe)) {
-//                ((Pipe)position).setisHighlight(true);
-//        }
-//        this.frame.repaint();
+        Component position = this.board.getComponentAt(e.getX(), e.getY());//rename
+        if(!(position instanceof Pipe)) return;
+        {
+                ((Pipe)position).setisHighlight(true);
+                this.board.repaint();
+                //this.frame.revalidate();
+        }
+
 
 
     }
 
-
-
     @Override
     public void mouseClicked(MouseEvent e) {
         super.mouseClicked(e);
-        Component position = this.board.getComponentAt(e.getX(),e.getY());
-        if(!(position instanceof Pipe)) return;
+        Component position = this.board.getComponentAt(e.getX(), e.getY());
+        if (!(position instanceof Pipe)) return;
         else {
 
+            int temp = ((Pipe) position).getOrientation();
+            temp++;
+            if (temp > 3) {
+                temp = 0;
+                ((Pipe) position).setOrientation(temp);
+                this.frame.repaint();
+            } else {
+                ((Pipe) position).setOrientation(temp);
+                this.frame.repaint();
+            }
         }
-
     }
 
     public JLabel getSizeLabel() {
