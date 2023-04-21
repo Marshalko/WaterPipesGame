@@ -112,7 +112,7 @@ public class GameLogic extends UniversalAdapter {
         if (!(position instanceof Pipe)) return;
         {
             this.board.eraseConnection();
-            ((Pipe) position).setisHighlight(true);
+            ((Pipe) position).setIsHighlight(true);
             //this.frame.revalidate();
         }
         this.board.repaint();
@@ -133,6 +133,7 @@ public class GameLogic extends UniversalAdapter {
                 temp = 0;
             }
             ((Pipe) position).setOrientation(temp);
+            System.out.println("repaint mouseclicked");
             this.frame.repaint();
         }
     }

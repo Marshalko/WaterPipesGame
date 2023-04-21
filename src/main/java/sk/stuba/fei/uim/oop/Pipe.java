@@ -38,7 +38,6 @@ public class Pipe extends JPanel {
         }
         else if(this.isConnected){
             this.setBackground(Color.cyan);
-            //this.isConnected = false;
         }
         else this.setBackground(Color.white);
         switch (shape) {
@@ -124,7 +123,7 @@ public class Pipe extends JPanel {
         }
     }
 
-    public OutputDirection getInputDircetion(){ return input;}
+    public OutputDirection getInputDirection(){ return input;}
     public OutputDirection getOutputDirection(){return output;}
     public void  setOutputDirection(OutputDirection outputDirection){
         this.output=outputDirection;
@@ -145,7 +144,7 @@ public class Pipe extends JPanel {
         this.orientation = orientation;
     }
 
-    public void setisHighlight(boolean ishighlight) {
-        this.isHighlight = ishighlight;
+    public void setIsHighlight(boolean isHighlight) {
+        this.isHighlight = isHighlight;
     }
 }

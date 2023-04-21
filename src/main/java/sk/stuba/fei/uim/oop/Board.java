@@ -66,9 +66,9 @@ public class Board extends JPanel {
         int i = 0;
         while (i < (path.size())-1) {
             i++;
-            temp1 = board[path.get(i)[0]][path.get(i)[1]].getInputDircetion();
+            temp1 = board[path.get(i)[0]][path.get(i)[1]].getInputDirection();
             temp2 = board[path.get(i)[0]][path.get(i)[1]].getOutputDirection();
-            temp3 = board[path.get(i - 1)[0]][path.get(i - 1)[1]].getInputDircetion();
+            temp3 = board[path.get(i - 1)[0]][path.get(i - 1)[1]].getInputDirection();
             temp4 = board[path.get(i - 1)[0]][path.get(i - 1)[1]].getOutputDirection();
 
             if (path.get(i)[0] != path.get(i - 1)[0]) {       //POD SEBOU
