@@ -20,7 +20,6 @@ public class MazeGenerator {
         generateMaze();
     }
 
-    //generovanie bludiska
     private void generateMaze() {
 
         for (int i = 0; i < size; i++) {
@@ -40,7 +39,6 @@ public class MazeGenerator {
         removeExcesivePaths();
     }
 
-    //DFS algoritmus
     private void dfs(int row, int col, int size) {
 
         boolean end = false;
@@ -72,7 +70,7 @@ public class MazeGenerator {
                     }
                 }
                 if (count == 4) {
-                    //vratim sa na poslednu poziciu
+
                     if (backTrackList.size() > 1) {
 
                         backTrackList.remove(backTrackList.size() - 1);
@@ -90,13 +88,13 @@ public class MazeGenerator {
                 }
             }
             if (!end) {
-                backTrackList.add(new int[]{newRow, newCol});// tu davam novu poziciu do arraylistu
+                backTrackList.add(new int[]{newRow, newCol});
                 dfs(newRow, newCol, size);
             }
         }
     }
 
-    //setne start a end na 2
+
     private void setStartEnd() {
         int[] start = backTrackList.get(0);
         int[] end = backTrackList.get(backTrackList.size() - 1);
@@ -104,7 +102,6 @@ public class MazeGenerator {
         maze[end[0]][end[1]] = 4;
     }
 
-    // spravy array prepojenych pozicii
     private void fillPath() {
         for (int i = 0; i < backTrackList.size() - 1; i++) {
             int[] temp0 = backTrackList.get(i);
@@ -130,24 +127,20 @@ public class MazeGenerator {
         path.add(backTrackList.get(backTrackList.size() - 1));
     }
 
-    //setne cetu v maze na 0 alebo 7 podla tvaru cesty
     private void shapeSearch() {
         for (int i = 1; i < backTrackList.size() - 1; i++) {
             int[] temp0 = backTrackList.get(i - 1);
             int[] temp1 = backTrackList.get(i);
             int[] temp2 = backTrackList.get(i + 1);
-            //ak je rovny trubko
+
             if (temp0[0] == temp1[0] && temp0[0] == temp2[0] || temp0[1] == temp1[1] && temp1[1] == temp2[1]) {
                 maze[temp1[0]][temp1[1]] = 0;
-            }
-            //ak je Lkovy trubko
-            else {
+            } else {
                 maze[temp1[0]][temp1[1]] = 7;
             }
         }
     }
 
-    // odstrani neplatne cesty
     private void removeExcesivePaths() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {

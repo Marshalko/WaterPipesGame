@@ -61,13 +61,15 @@ public class GameLogic extends UniversalAdapter {
         if (!source.getValueIsAdjusting()) {
             this.boardSize = ((JSlider) e.getSource()).getValue();
             this.updateSizeLabel();
+            this.numberOfWins=0;
+            this.updateWinsLabel();
             this.restartGame();
             this.frame.setFocusable(true);
             this.frame.requestFocus();
         }
     }
 
-    @Override // BUTTON
+    @Override
     public void actionPerformed(ActionEvent e) {
         super.actionPerformed(e);
         String command = e.getActionCommand();
@@ -94,14 +96,26 @@ public class GameLogic extends UniversalAdapter {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println(e);
-
         switch (e.getKeyCode()) {
             case KeyEvent.VK_R:
                 restartGame();
                 break;
             case KeyEvent.VK_ESCAPE:
                 frame.dispose();
+                break;
+            case KeyEvent.VK_ENTER:
+                board.checkConnections();
+                this.board.repaint();
+                this.frame.setFocusable(true);
+                this.frame.requestFocus();
+
+                if (board.checkConnections()) {
+                    numberOfWins++;
+                    this.updateWinsLabel();
+                    this.restartGame();
+                    this.frame.setFocusable(true);
+                    this.frame.requestFocus();
+                }
         }
     }
 
@@ -113,11 +127,8 @@ public class GameLogic extends UniversalAdapter {
         {
             this.board.eraseConnection();
             ((Pipe) position).setIsHighlight(true);
-            //this.frame.revalidate();
         }
         this.board.repaint();
-
-
     }
 
     @Override
@@ -133,7 +144,6 @@ public class GameLogic extends UniversalAdapter {
                 temp = 0;
             }
             ((Pipe) position).setOrientation(temp);
-            System.out.println("repaint mouseclicked");
             this.frame.repaint();
         }
     }

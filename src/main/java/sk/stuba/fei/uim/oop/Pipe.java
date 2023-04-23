@@ -4,7 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-enum  OutputDirection{UP,DOWN,LEFT,RIGHT}
+enum OutputDirection {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
+
 public class Pipe extends JPanel {
     private final int shape;
     private boolean isConnected;
@@ -26,28 +32,30 @@ public class Pipe extends JPanel {
 
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
+        super.paintComponent(g);
         int height = getHeight();
         int thickness = (int) (height * 0.4);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setStroke(new BasicStroke(thickness));
         int x = getWidth() / 2;
 
-        if (this.isHighlight) {
-            this.setBackground(Color.pink);
-            this.isHighlight = false;
-        }
-        else if(this.isConnected){
+        if (this.isConnected) {
             this.setBackground(Color.cyan);
         }
-        else this.setBackground(Color.white);
+        else if (this.isHighlight) {
+            this.setBackground(Color.pink);
+            this.isHighlight = false;
+        } else {
+            this.setBackground(Color.white);
+        }
         switch (shape) {
-            // ROVNA TRUBKA
             case 0: {
                 switch (orientation) {
                     case 0:
                     case 2: {
-                         this.input = OutputDirection.LEFT;
-                         this.output = OutputDirection.RIGHT;
+                        this.input = OutputDirection.LEFT;
+                        this.output = OutputDirection.RIGHT;
                         g.setColor(Color.YELLOW);
                         g.drawLine(0, x, height, x);
                         break;
@@ -63,12 +71,11 @@ public class Pipe extends JPanel {
                 }
                 break;
             }
-            // ZAKTRUTA TRUBKA
             case 7: {
                 switch (orientation) {
                     //UP LEFT
                     case 0: {
-                        this.input  = OutputDirection.UP;
+                        this.input = OutputDirection.UP;
                         this.output = OutputDirection.LEFT;
                         g.setColor(Color.orange);
                         g.drawLine(x, 0, x, height / 2);
@@ -77,7 +84,7 @@ public class Pipe extends JPanel {
                     }
                     //UP RIGHT
                     case 1: {
-                        this.input  = OutputDirection.UP;
+                        this.input = OutputDirection.UP;
                         this.output = OutputDirection.RIGHT;
                         g.setColor(Color.orange);
                         g.drawLine(x, 0, x, x);
@@ -86,7 +93,7 @@ public class Pipe extends JPanel {
                     }
                     // DOWN RIGHT
                     case 2: {
-                        this.input  = OutputDirection.RIGHT;
+                        this.input = OutputDirection.RIGHT;
                         this.output = OutputDirection.DOWN;
                         g.setColor(Color.orange);
                         g.drawLine(x, height, x, x);
@@ -95,7 +102,7 @@ public class Pipe extends JPanel {
                     }
                     // LEFT DOWN
                     case 3: {
-                        this.input  = OutputDirection.DOWN;
+                        this.input = OutputDirection.DOWN;
                         this.output = OutputDirection.LEFT;
                         g.setColor(Color.orange);
                         g.drawLine(x, height, x, x);
@@ -105,29 +112,50 @@ public class Pipe extends JPanel {
                 }
                 break;
             }
-            //PRAZDNE POLE
             case 1: {
                 break;
             }
-            //START
             case 2: {
-
-                this.setBackground(Color.red);
+                if(this.output==OutputDirection.RIGHT){
+                    g.setColor(Color.red);
+                    g.drawLine(0, x, height, x);
+                }
+                else {
+                    g.setColor(Color.red);
+                    g.drawLine(x, 0, x, height);
+                }
                 break;
             }
-            //CIEL
             case 4: {
-                this.setBackground(Color.green);
+                if(this.output==OutputDirection.LEFT){
+                    g.setColor(Color.green);
+                    g.drawLine(0, x, height, x);
+                }
+                else {
+                    g.setColor(Color.green);
+                    g.drawLine(x, 0, x, height);
+                }
                 break;
             }
         }
+
+        return;
+
     }
 
-    public OutputDirection getInputDirection(){ return input;}
-    public OutputDirection getOutputDirection(){return output;}
-    public void  setOutputDirection(OutputDirection outputDirection){
-        this.output=outputDirection;
+
+    public OutputDirection getInputDirection() {
+        return input;
     }
+
+    public OutputDirection getOutputDirection() {
+        return output;
+    }
+
+    public void setOutputDirection(OutputDirection outputDirection) {
+        this.output = outputDirection;
+    }
+
     public int getOrientation() {
         return orientation;
     }

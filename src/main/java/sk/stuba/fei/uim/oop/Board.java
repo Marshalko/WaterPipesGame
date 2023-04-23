@@ -13,8 +13,8 @@ public class Board extends JPanel {
     public Board(int size) {
 
         MazeGenerator maze = new MazeGenerator(size);
-        tiles = maze.getMaze();                //array mazu kde su cisla podla tvaru
-        path = maze.getBackTrackList();           // arraylist cesty
+        tiles = maze.getMaze();
+        path = maze.getBackTrackList();
         createPipes(tiles.length);
         rotateStartEnd();
     }
@@ -32,7 +32,7 @@ public class Board extends JPanel {
     }
 
     private void rotateStartEnd() {
-        // rotacia STARTU
+
         int[] temp1 = path.get(0);
         int[] temp2 = path.get(path.size() - (path.size() - 1));
         if (temp1[0] != temp2[0]) {
@@ -44,8 +44,6 @@ public class Board extends JPanel {
         } else
             this.board[temp1[0]][temp1[1]].setOutputDirection(OutputDirection.RIGHT);
 
-
-        // rotacia CIELA
         int[] temp3 = path.get(path.size() - 1);
         int[] temp4 = path.get(path.size() - 2);
         if (temp3[0] != temp4[0]) {
@@ -64,48 +62,54 @@ public class Board extends JPanel {
         OutputDirection temp3;
         OutputDirection temp4;
         int i = 0;
-        while (i < (path.size())-1) {
+        while (i < (path.size()) - 1) {
             i++;
             temp1 = board[path.get(i)[0]][path.get(i)[1]].getInputDirection();
             temp2 = board[path.get(i)[0]][path.get(i)[1]].getOutputDirection();
             temp3 = board[path.get(i - 1)[0]][path.get(i - 1)[1]].getInputDirection();
             temp4 = board[path.get(i - 1)[0]][path.get(i - 1)[1]].getOutputDirection();
 
-            if (path.get(i)[0] != path.get(i - 1)[0]) {       //POD SEBOU
-                if (path.get(i)[0] > path.get(i - 1)[0]) {    // POD nim
-                    if ((temp1 == OutputDirection.UP || temp2 == OutputDirection.UP) && (temp3 == OutputDirection.DOWN || temp4 == OutputDirection.DOWN)) {
-                        board[path.get(i)[0]][path.get(i)[1]].setConnected(true);
-                        board[path.get(i)[0]][path.get(i)[1]].repaint();
-                    } else break;
-                } else if (path.get(i)[0] < path.get(i - 1)[0]) {   // NAD nim
-                    if ((temp1 == OutputDirection.DOWN || temp2 == OutputDirection.DOWN) && (temp3 == OutputDirection.UP || temp4 == OutputDirection.UP)) {
-                        board[path.get(i)[0]][path.get(i)[1]].setConnected(true);
-                        board[path.get(i)[0]][path.get(i)[1]].repaint();
-                    } else break;
+            if (path.get(i)[0] != path.get(i - 1)[0]) {
+                if (path.get(i)[0] > path.get(i - 1)[0]) {
+                    if (checkConnectionsV2(temp1, temp2, temp3, temp4, i, OutputDirection.UP, OutputDirection.DOWN))
+                        break;
+                } else if (path.get(i)[0] < path.get(i - 1)[0]) {
+                    if (checkConnectionsV2(temp1, temp2, temp3, temp4, i, OutputDirection.DOWN, OutputDirection.UP))
+                        break;
                 }
-            } else if (path.get(i)[1] != path.get(i - 1)[1]) {// VEDLA SEBA
-                if (path.get(i)[1] < path.get(i - 1)[1]) { // NALAVO
-                    if ((temp1 == OutputDirection.RIGHT || temp2 == OutputDirection.RIGHT) && (temp3 == OutputDirection.LEFT || temp4 == OutputDirection.LEFT)) {
-                        board[path.get(i)[0]][path.get(i)[1]].setConnected(true);
-                        board[path.get(i)[0]][path.get(i)[1]].repaint();
-                    } else break;
-                } else if (path.get(i)[1] > path.get(i - 1)[1]) { // NAPRAVO
-                    if ((temp1 == OutputDirection.LEFT || temp2 == OutputDirection.LEFT) && (temp3 == OutputDirection.RIGHT || temp4 == OutputDirection.RIGHT)) {
-                        board[path.get(i)[0]][path.get(i)[1]].setConnected(true);
-                        board[path.get(i)[0]][path.get(i)[1]].repaint();
-                    } else break;
+            } else if (path.get(i)[1] != path.get(i - 1)[1]) {
+                if (path.get(i)[1] < path.get(i - 1)[1]) {
+                    if (checkConnectionsV3(temp1, temp2, temp3, temp4, i, OutputDirection.RIGHT, OutputDirection.LEFT))
+                        break;
+                } else if (path.get(i)[1] > path.get(i - 1)[1]) {
+                    if (checkConnectionsV3(temp1, temp2, temp3, temp4, i, OutputDirection.LEFT, OutputDirection.RIGHT))
+                        break;
                 }
             }
         }
         return board[path.get(path.size() - 1)[0]][path.get(path.size() - 1)[1]].isConnected();
     }
 
-    public void eraseConnection(){
-        for(int i=0;i<tiles.length;i++){
-            for(int j=0; j<tiles.length;j++) this.board[i][j].setConnected(false);
+    private boolean checkConnectionsV3(OutputDirection temp1, OutputDirection temp2, OutputDirection temp3, OutputDirection temp4, int i, OutputDirection right, OutputDirection left) {
+        return checkConnectionsV4(temp1, temp2, temp3, temp4, i, right, left);
+    }
+
+    private boolean checkConnectionsV4(OutputDirection temp1, OutputDirection temp2, OutputDirection temp3, OutputDirection temp4, int i, OutputDirection right, OutputDirection left) {
+        if ((temp1 == right || temp2 == right) && (temp3 == left || temp4 == left)) {
+            board[path.get(i)[0]][path.get(i)[1]].setConnected(true);
+            board[path.get(i)[0]][path.get(i)[1]].repaint();
+        } else return true;
+        return false;
+    }
+
+    private boolean checkConnectionsV2(OutputDirection temp1, OutputDirection temp2, OutputDirection temp3, OutputDirection temp4, int i, OutputDirection down, OutputDirection up) {
+        return checkConnectionsV4(temp1, temp2, temp3, temp4, i, down, up);
+    }
+
+    public void eraseConnection() {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles.length; j++) this.board[i][j].setConnected(false);
         }
     }
-    public ArrayList<int[]> getPath() {
-        return path;
-    }
+
 }
